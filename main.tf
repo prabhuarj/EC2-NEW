@@ -53,7 +53,7 @@ module "sg" {
   egress_cidr_blocks  = ["0.0.0.0/0"]
 }
 
-resource "aws_security_group" "blog" {
+resource "aws_security_group" "blog1" {
   name        = "blog"
   description = "Allow HTTP and HTTPS in and all outbound traffic"
   vpc_id      = module.blog_vpc.vpc_id
@@ -68,7 +68,7 @@ resource "aws_security_group_rule" "blog_http_in" {
   to_port           = 80
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.blog.id
+  security_group_id = aws_security_group.blog1.id
 }
 
 resource "aws_security_group_rule" "blog_https_in" {
@@ -77,7 +77,7 @@ resource "aws_security_group_rule" "blog_https_in" {
   to_port           = 443
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.blog.id
+  security_group_id = aws_security_group.blog1.id
 }
 
 resource "aws_security_group_rule" "blog_everythin_out" {
@@ -86,7 +86,7 @@ resource "aws_security_group_rule" "blog_everythin_out" {
   to_port           = 0
   protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.blog.id
+  security_group_id = aws_security_group.blog1.id
 }
 
 
