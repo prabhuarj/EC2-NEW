@@ -68,6 +68,9 @@ module "blog_alb" {
         status_code = "HTTP_301"
       }
     }
+  }
+
+
 
   tags = {
     Environment = "dev"
