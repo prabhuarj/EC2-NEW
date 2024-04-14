@@ -21,8 +21,7 @@ data "aws_vpc" "default" {
 resource "aws_instance" "vm" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
-
-  vpc_security_groups_ids = [aws_security_group.blog.id]
+  vpc_security_group_ids = [aws_security_group.blog.id]
 
   tags = {
     Name = "prabhuvm"
