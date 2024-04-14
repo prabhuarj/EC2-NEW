@@ -56,7 +56,7 @@ module "blog_alb" {
       backend_port     = 80
       target_type      = "aws_instance.vm.id"
     }
-}
+  }
 
   listeners = {
     ex-http-https-redirect = {
@@ -73,6 +73,7 @@ module "blog_alb" {
     Environment = "dev"
   }
 }
+
 
 
 module "sg" {
