@@ -44,7 +44,7 @@ resource "aws_instance" "vm" {
 module "sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.2"
-  vpc_id = data.aws_vpc.default.id
+  vpc_id = module.blog_vpc.vpc_id
   name = "blog_new"
 
   ingress_rules       = ["http-80-tcp", "https-443-tcp"]
@@ -56,7 +56,7 @@ module "sg" {
 resource "aws_security_group" "blog" {
   name        = "blog"
   description = "Allow HTTP and HTTPS in and all outbound traffic"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = module.blog_vpc.vpc_id
   tags = {
     Name = "blog-old"
   }
