@@ -35,9 +35,9 @@ module "sg" {
   name = "blog_new"
 
   ingress_rules       = ["http-80-tcp", "https-443-tcp"]
-  ingress_cidr_blocks = ["0.0.0.0/24]
+  ingress_cidr_blocks = ["0.0.0.0/24"]
   egress_rules        = ["all-all"]
-  egress_cidr_blocks  = ["0.0.0.0/24]
+  egress_cidr_blocks  = ["0.0.0.0/24"]
 }
 
 resource "aws_security_group" "blog" {
