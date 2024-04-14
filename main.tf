@@ -54,7 +54,7 @@ module "blog_alb" {
       name_prefix      = "blog-"
       backend_protocol = "HTTP"
       backend_port     = 80
-      target_type      = "aws_instance.vm.id"
+      target_type      = "instance"
     }
   }
 
