@@ -62,7 +62,7 @@ module "alb" {
 
   target_groups = {
     ex-instance = {
-      name_prefix      = "h1"
+      name_prefix      = "dev"
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
