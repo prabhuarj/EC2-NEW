@@ -41,42 +41,31 @@ resource "aws_instance" "vm" {
   }
 }
 
-module "blog_alb" {
-  source = "terraform-aws-modules/alb/aws"
+module "alb" {
+  source  = "terraform-aws-modules/alb/aws"
+  version = "9.8.0"
 
   name    = "blog-alb"
   vpc_id  = module.blog_vpc.vpc_id
   subnets = module.blog_vpc.public_subnets
   security_groups    = [module.sg.security_group_id]
 
-  target_groups = {
-    ex-instance = {
+  target_groups = [
+    {
       name_prefix      = "blog-"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
-      targets = {
-        my_target = {
-          target_id = aws_instance.vm.id
-          port = 80
-        }
-      }
     }
-  }
+  ]
 
-  listeners = {
-    ex-http-https-redirect = {
-      port     = 80
-      protocol = "HTTP"
-      redirect = {
-        port        = "443"
-        protocol    = "HTTPS"
-        status_code = "HTTP_301"
-      }
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "HTTP"
+      target_group_index = 0
     }
-  }
-
-
+  ]
 
   tags = {
     Environment = "dev"
