@@ -53,16 +53,24 @@ module "alb" {
   security_groups    = [module.sg.security_group_id]
 
   listeners = {
-    ex-http-redirect = {
+    ex-http-https-redirect = {
       port     = 80
       protocol = "HTTP"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
     }
+
+      forward = {
+        target_group_key = "ex-instance"
+      }
   }
- 
 
   target_groups = {
     ex-instance = {
-      name_prefix      = "dev"
+      name_prefix      = "h1"
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
@@ -71,7 +79,7 @@ module "alb" {
 
   tags = {
     Environment = "Dev"
-   
+    Project     = "Env"
   }
 }
 
