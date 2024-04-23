@@ -14,7 +14,7 @@ data "aws_ami" "app_ami" {
   owners = [var.ami_filter.owner] # Bitnami
 }
 
-resource "aws_instance" "blog" {
+resource "aws_instance" "vm" {
   ami                    = data.aws_ami.app_ami.id
   instance_type          = var.instance_type
   subnet_id              = module.blog_vpc.public_subnets[0]
@@ -66,6 +66,7 @@ module "alb" {
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
+      target_id        = aws_instance.vm.id
     }
   }
 
